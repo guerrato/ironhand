@@ -14,18 +14,23 @@ class DemographicsTableSeeder extends Seeder
         $data = [
             [
                 'id' => 1,
-                'description' => 'activated',
-                'note' => 'Indica que o usuário está ativo para ser alocado em grupos e eventos e ser considerado em relatórios.'
+                'description' => 'For ministry members',
+                'note' => 'For all members that is registered in the ministry.'
             ],
             [
                 'id' => 2,
-                'description' => 'traveling',
-                'note' => 'Indica que o usuário está viajando por longo período ou está no exterior, portanto não está disponível para ser alocado em grupos e eventos ou ser considerado em relatórios.'
+                'description' => 'For women',
+                'note' => 'For all women that is registered in the database.'
             ],
             [
                 'id' => 3,
-                'description' => 'transfered',
-                'note' => 'Indica que o usuário foi transferido para outra comunidade.'
+                'description' => 'For men',
+                'note' => 'For all men that is registered in the database.'
+            ],
+            [
+                'id' => 4,
+                'description' => 'For church',
+                'note' => 'For all who are in the church.'
             ]
         ];
 

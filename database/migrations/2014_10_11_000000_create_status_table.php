@@ -17,6 +17,7 @@ class CreateStatusTable extends Migration
             $table->increments('id');
             $table->string('description', 100)->unique();
             $table->string('slug');
+            $table->mediumText('note')->nullable();
         });
     }
 

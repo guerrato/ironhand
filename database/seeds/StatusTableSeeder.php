@@ -14,11 +14,18 @@ class StatusTableSeeder extends Seeder
         $data = [
             [
                 'id' => 1,
-                'description' => 'active'
+                'description' => 'activated',
+                'note' => 'Indica que o usuário está ativo para ser alocado em grupos e eventos e ser considerado em relatórios.'
             ],
             [
                 'id' => 2,
-                'description' => 'traveling'
+                'description' => 'traveling',
+                'note' => 'Indica que o usuário está viajando por longo período ou está no exterior, portanto não está disponível para ser alocado em grupos e eventos ou ser considerado em relatórios.'
+            ],
+            [
+                'id' => 3,
+                'description' => 'transfered',
+                'note' => 'Indica que o usuário foi transferido para outra comunidade.'
             ]
         ];
         

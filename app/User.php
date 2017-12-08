@@ -42,4 +42,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Status', 'status_id', 'id');
     }
+
+    /**
+     * Get the ministries that the user coordinates.
+     */
+    public function users()
+    {
+        return $this->hasMany('App\Models\Ministry', 'coordinator_id', 'id');
+    }
 }
