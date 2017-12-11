@@ -10,6 +10,10 @@ interface RepositoryInterface
 
     public function setSlug($value);
 
+    public function all();
+
+    public function findOrFail($id);
+
     public function create(array $data);
     
     public function update(array $data, $id);

@@ -36,6 +36,14 @@ abstract class Repository implements RepositoryInterface
         return $slug;
     }
 
+    public function all() {
+        return $this->model->all();
+    }
+    
+    public function findOrFail($id) {
+        return $this->model->findOrFail($id);
+    }
+
     public function create(array $data) {
         return $this->model->create($data);
     }

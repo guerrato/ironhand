@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::prefix('ministry')->group(function () {
+    Route::get('/', 'MinistryController@getAll');
+    Route::get('/{id}', 'MinistryController@getMinistry');
     Route::post('/', 'MinistryController@create');
     Route::put('/{id}', 'MinistryController@update');
 });

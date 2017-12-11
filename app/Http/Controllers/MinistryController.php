@@ -42,4 +42,12 @@ class MinistryController extends Controller
         return $this->formatedSuccess($this->ministry->update($data));
 
     }
+
+    public function getAll() {
+        return $this->formatedSuccess($this->ministry->getAll());
+    }
+    
+    public function getMinistry(Request $request, $id) {
+        return $this->formatedSuccess($this->ministry->getMinistry($id));
+    }
 }

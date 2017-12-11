@@ -26,4 +26,5 @@ class MinistryRepository extends Repository
         return parent::update($data, $id);
 
     }
+    
 }

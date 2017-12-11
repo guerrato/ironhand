@@ -39,4 +39,12 @@ class Ministry {
         
         return $this->ministry->update($data, $data['id']);
     }
+
+    public function getAll() {
+        return $this->ministry->all();
+    }
+    
+    public function getMinistry($id) {
+        return $this->ministry->findOrFail($id);
+    }
 }
