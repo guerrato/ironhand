@@ -12,7 +12,6 @@ class Ministry extends Model
      * @var string
      */
     protected $table = 'ministries';
-    
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +19,19 @@ class Ministry extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'description', 'requires_gender', 'coordinator_id', 'default_demographic_id'
+        'name', 'slug', 'description', 'required_gender', 'coordinator_id', 'default_demographic_id'
+    ];
+
+    /**
+     * The rules to validate the fillable attibutes.
+     */
+    public $rules = [
+        'name' => 'required|unique:ministries,name',
+        'slug' => 'unique:ministries,slug',
+        'description' => 'nullable',
+        'required_gender' => 'nullable|in:female,male',
+        'coordinator_id' => 'required|exists:users,id',
+        'default_demographic_id' => 'required|exists:demographics,id',
     ];
 
     /**
