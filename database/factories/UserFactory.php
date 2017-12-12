@@ -24,10 +24,11 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
         'birthdate' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'image' => $faker->imageUrl(256, 256, 'people'),
-        'gender' => (string) rand(1, 2),
+        'gender' => rand(1, 2),
         'phone' => $faker->tollFreePhoneNumber,
         'whatsapp' => $faker->tollFreePhoneNumber,
         'facebook' => $faker->url,
-        'uuid' => Utils::generateUuid()
+        'uuid' => Utils::generateUuid(),
+        'role_id' => rand(1, 3)
     ];
 });

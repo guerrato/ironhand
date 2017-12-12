@@ -22,4 +22,11 @@ Route::prefix('ministry')->group(function () {
     Route::get('/{id}', 'MinistryController@getMinistry');
     Route::post('/', 'MinistryController@create');
     Route::put('/{id}', 'MinistryController@update');
+
+    Route::prefix('{ministry_id}/group')->group(function () {
+        Route::get('/', 'GroupController@getAll');
+        Route::get('/{id}', 'GroupController@getGroup');
+        Route::post('/', 'GroupController@create');
+        Route::put('/{id}', 'GroupController@update');
+    });
 });

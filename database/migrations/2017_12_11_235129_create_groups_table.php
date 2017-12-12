@@ -17,6 +17,7 @@ class CreateGroupsTable extends Migration
             $table->increments('id');
             $table->string('description');
             $table->string('slug');
+            $table->enum('required_gender', ['female','male'])->nullable();
             $table->integer('ministry_id')->unsigned();
             $table->integer('leader_id')->unsigned();
             $table->timestamps();

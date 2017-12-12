@@ -18,4 +18,8 @@ class UserRepository extends Repository
             ->select('users.*')
             ->get();
     }
+
+    public function getUserByGender($gender) {
+        return $this->getModel()->where('gender', $gender)->get();
+    }
 }

@@ -19,7 +19,7 @@ class Group extends Model
      * @var array
      */
     protected $fillable = [
-        'description', 'slug', 'ministry_id', 'leader_id'
+        'description', 'slug', 'required_gender', 'ministry_id', 'leader_id'
     ];
 
     /**
@@ -28,6 +28,7 @@ class Group extends Model
     public $rules = [
         'description' => 'required',
         'slug' => 'unique:groups,slug',
+        'required_gender' => 'nullable|in:female,male',
         'ministry_id' => 'required|exists:ministries,id',
         'leader_id' => 'required|exists:users,id'
     ];
