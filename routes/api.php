@@ -28,5 +28,8 @@ Route::prefix('ministry')->group(function () {
         Route::get('/{id}', 'GroupController@getGroup');
         Route::post('/', 'GroupController@create');
         Route::put('/{id}', 'GroupController@update');
+        Route::delete('/{id}', 'GroupController@delete');
+        Route::put('/{id}/arrangemembers', 'GroupController@arrageMembers');
+        Route::get('/{id}/getmembers', 'GroupController@getMembers');
     });
 });

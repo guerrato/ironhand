@@ -14,14 +14,12 @@ class MinistryRepository extends Repository
     }
 
     public function create(array $data) {
-
         $data['slug'] = $this->setSlug($data['name']);
         return parent::create($data);
 
     }
     
     public function update(array $data, $id) {
-
         $data['slug'] = $this->setSlug($data['name'], $data['id']);
         return parent::update($data, $id);
 

@@ -64,6 +64,6 @@ class User extends Authenticatable
      */
     public function members()
     {
-        return $this->belongsToMany('App\Models\Groups', 'members', 'group_id', 'user_id');
+        return $this->belongsToMany('App\Models\Groups', 'members', 'group_id', 'user_id')->withTimestamps();
     }
 }

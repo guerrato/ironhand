@@ -52,4 +52,9 @@ abstract class Repository implements RepositoryInterface
         $model = $this->model->findOrFail($id);
         return $model->update($data);
     }
+
+    public function delete($id) {
+        $model = $this->model->findOrFail($id);
+        return $model->delete();
+    }
 }
