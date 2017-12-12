@@ -46,8 +46,24 @@ class User extends Authenticatable
     /**
      * Get the ministries that the user coordinates.
      */
-    public function users()
+    public function ministries()
     {
         return $this->hasMany('App\Models\Ministry', 'coordinator_id', 'id');
+    }
+
+    /**
+     * Get the groups that the user leads.
+     */
+    public function groups()
+    {
+        return $this->hasMany('App\Models\Groups', 'leader_id', 'id');
+    }
+
+    /**
+     * The groups that the user is member.
+     */
+    public function members()
+    {
+        return $this->belongsToMany('App\Models\Groups', 'members', 'group_id', 'user_id');
     }
 }

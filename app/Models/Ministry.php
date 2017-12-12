@@ -49,4 +49,12 @@ class Ministry extends Model
     {
         return $this->belongsTo('App\Models\Demographic', 'default_demographic_id', 'id');
     }
+
+    /**
+     * Get the groups that belongs to the ministry.
+     */
+    public function groups()
+    {
+        return $this->hasMany('App\Models\Groups', 'ministry_id', 'id');
+    }
 }
