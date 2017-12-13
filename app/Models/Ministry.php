@@ -19,7 +19,7 @@ class Ministry extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'description', 'required_gender', 'coordinator_id', 'default_demographic_id'
+        'name', 'slug', 'description', 'required_gender', 'coordinator_id'
     ];
 
     /**
@@ -31,7 +31,6 @@ class Ministry extends Model
         'description' => 'nullable',
         'required_gender' => 'nullable|in:female,male',
         'coordinator_id' => 'required|exists:users,id',
-        'default_demographic_id' => 'required|exists:demographics,id',
     ];
 
     /**
@@ -40,14 +39,6 @@ class Ministry extends Model
     public function coordinator()
     {
         return $this->belongsTo('App\User', 'coordinator_id', 'id');
-    }
-
-    /**
-     * Get the default demographic of the ministry.
-     */
-    public function defaultDemographic()
-    {
-        return $this->belongsTo('App\Models\Demographic', 'default_demographic_id', 'id');
     }
 
     /**

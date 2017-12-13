@@ -20,11 +20,9 @@ class CreateMinistriesTable extends Migration
             $table->mediumText('description')->nullable();
             $table->enum('required_gender', ['female','male'])->nullable();
             $table->integer('coordinator_id')->unsigned();
-            $table->integer('default_demographic_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('coordinator_id')->references('id')->on('users');
-            $table->foreign('default_demographic_id')->references('id')->on('demographics');
         });
     }
 
