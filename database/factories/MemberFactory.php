@@ -14,7 +14,7 @@ use App\Helpers\Utils;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\Models\Member::class, function (Faker $faker) {
     static $password;
 
     return [

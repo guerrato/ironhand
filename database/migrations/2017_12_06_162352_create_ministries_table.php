@@ -22,7 +22,7 @@ class CreateMinistriesTable extends Migration
             $table->integer('coordinator_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('coordinator_id')->references('id')->on('users');
+            $table->foreign('coordinator_id')->references('id')->on('members');
         });
     }
 
