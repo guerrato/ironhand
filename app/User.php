@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','birthdate', 'image', 'gender', 'phone', 'whatsapp', 'facebook', 'uuid', 'role_id', 'status_id'
+        'name', 'email', 'password', 'member_id'
     ];
 
     /**
@@ -28,42 +28,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the role that is related to the user.
+     * Get the member that is related to the user.
      */
-    public function role()
+    public function member()
     {
-        return $this->belongsTo('App\Models\Role', 'role_id', 'id');
-    }
-    
-    /**
-     * Get the status that is related to the user.
-     */
-    public function status()
-    {
-        return $this->belongsTo('App\Models\Status', 'status_id', 'id');
-    }
-
-    /**
-     * Get the ministries that the user coordinates.
-     */
-    public function ministries()
-    {
-        return $this->hasMany('App\Models\Ministry', 'coordinator_id', 'id');
-    }
-
-    /**
-     * Get the groups that the user leads.
-     */
-    public function groups()
-    {
-        return $this->hasMany('App\Models\Groups', 'leader_id', 'id');
-    }
-
-    /**
-     * The groups that the user is member.
-     */
-    public function members()
-    {
-        return $this->belongsToMany('App\Models\Groups', 'members', 'group_id', 'user_id')->withTimestamps();
+        return $this->belongsTo('App\Models\Member', 'member_id', 'id');
     }
 }

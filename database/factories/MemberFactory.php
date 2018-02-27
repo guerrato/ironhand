@@ -19,9 +19,7 @@ $factory->define(App\User::class, function (Faker $faker) {
 
     return [
         'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'email' => $faker->unique()->email(),
         'nickname' => $faker->lastName,
         'birthdate' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'image' => $faker->imageUrl(256, 256, 'people'),

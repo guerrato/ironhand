@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Group extends Model
 {
+    use SoftDeletes;
+    
     /**
      * The table associated with the model.
      *
@@ -46,7 +49,7 @@ class Group extends Model
      */
     public function leader()
     {
-        return $this->belongsTo('App\User', 'leader_id', 'id');
+        return $this->belongsTo('App\Models\Member', 'leader_id', 'id');
     }
 
     /**
@@ -54,6 +57,6 @@ class Group extends Model
      */
     public function members()
     {
-        return $this->belongsToMany('App\User', 'members', 'group_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany('App\Models\Member', 'members', 'group_id', 'member_id')->withTimestamps();
     }
 }

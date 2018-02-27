@@ -24,7 +24,7 @@ class CreateGroupsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('ministry_id')->references('id')->on('ministries');
-            $table->foreign('leader_id')->references('id')->on('users');
+            $table->foreign('leader_id')->references('id')->on('members');
         });
     }
 
