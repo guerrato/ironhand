@@ -26,9 +26,12 @@ class CreateMembersTable extends Migration
             $table->string('facebook')->nullable();
             $table->string('uuid')->unique()->nullable();
             $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('role_id')->unsigned()->default(1);
             $table->integer('status_id')->unsigned()->default(1);
             $table->timestamps();
             $table->softDeletes();
+            
+            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 

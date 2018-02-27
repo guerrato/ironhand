@@ -17,6 +17,14 @@ class Member extends Model
     protected $fillable = [
         'name', 'email','birthdate', 'image', 'gender', 'phone', 'whatsapp', 'facebook', 'uuid', 'status_id'
     ];
+
+    /**
+     * Get the role that is related to the user.
+     */
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role', 'role_id', 'id');
+    }
     
     /**
      * Get the status that is related to the user.

@@ -30,10 +30,10 @@ class Role extends Model
     ];
 
     /**
-     * Get the users that have the role.
+     * Get the members that have the role.
      */
-    public function users()
+    public function members()
     {
-        return $this->hasMany('App\User', 'role_id', 'id');
+        return $this->hasMany('App\Models\Member', 'role_id', 'id');
     }
 }
