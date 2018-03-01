@@ -2,20 +2,20 @@
 
 namespace App\Repositories;
 
-use App\User;
+use App\Models\Member;
 use App\Repositories\Contracts\Repository;
 
-class UserRepository extends Repository
+class MemberRepository extends Repository
 {
-    public function __construct(User $model) {
+    public function __construct(Member $model) {
         $this->model = $model;
     }
 
     public function getCoordinators() {
         return $this->getModel()
-            ->join('roles', 'users.role_id', '=', 'roles.id')
+            ->join('roles', 'members.role_id', '=', 'roles.id')
             ->whereIn('roles.slug', ['coordinator', 'administator'])
-            ->select('users.*')
+            ->select('members.*')
             ->get();
     }
 

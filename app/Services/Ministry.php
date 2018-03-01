@@ -3,16 +3,16 @@
 namespace App\Services;
 
 use Exception;
-use App\Repositories\UserRepository;
+use App\Repositories\MemberRepository;
 use App\Repositories\MinistryRepository;
 
 class Ministry {
 
-    private $user;
+    private $member;
     private $ministry;
 
-    public function __construct(UserRepository $user, MinistryRepository $ministry){
-        $this->user = $user;
+    public function __construct(MemberRepository $member, MinistryRepository $ministry){
+        $this->member = $member;
         $this->ministry = $ministry;
     }
 
@@ -21,7 +21,7 @@ class Ministry {
     }
 
     public function create($data) {
-        $coordinators = array_column($this->user->getCoordinators($data['coordinator_id'])->toArray(), 'id');
+        $coordinators = array_column($this->member->getCoordinators($data['coordinator_id'])->toArray(), 'id');
         
         if(empty($coordinators)) {
             throw new Exception(__('messages.user.coordinator.no_coordinator'), 1);
@@ -31,7 +31,7 @@ class Ministry {
     }
 
     public function update($data) {
-        $coordinators = array_column($this->user->getCoordinators($data['coordinator_id'])->toArray(), 'id');
+        $coordinators = array_column($this->member->getCoordinators($data['coordinator_id'])->toArray(), 'id');
         
         if(empty($coordinators)) {
             throw new Exception(__('messages.user.coordinator.no_coordinator'), 1);

@@ -37,7 +37,7 @@ class GroupRepository extends Repository
         $group = $this->findOrFail($data['group_id']);
         $group->members()->detach();
 
-        return $group->members()->attach($data['users']);
+        return $group->members()->attach($data['members']);
     }
 
     public function getMembers($id) {

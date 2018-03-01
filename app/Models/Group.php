@@ -33,7 +33,7 @@ class Group extends Model
         'slug' => 'unique:groups,slug',
         'required_gender' => 'nullable|in:female,male',
         'ministry_id' => 'required|exists:ministries,id',
-        'leader_id' => 'required|exists:users,id'
+        'leader_id' => 'required|exists:members,id'
     ];
 
     /**
@@ -57,6 +57,6 @@ class Group extends Model
      */
     public function members()
     {
-        return $this->belongsToMany('App\Models\Member', 'members', 'group_id', 'member_id')->withTimestamps();
+        return $this->belongsToMany('App\Models\Member', 'members_in_group', 'group_id', 'member_id')->withTimestamps();
     }
 }

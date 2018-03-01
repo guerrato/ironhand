@@ -69,7 +69,7 @@ class GroupController extends Controller
     public function arrageMembers(Request $request, $ministry_id, $id) {
         $rules = [
             'group_id' => 'required|exists:groups,id',
-            'users' => 'required|array'
+            'members' => 'required|array'
         ];
 
         $data = $request->all();

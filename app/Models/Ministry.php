@@ -30,7 +30,7 @@ class Ministry extends Model
         'slug' => 'unique:ministries,slug',
         'description' => 'nullable',
         'required_gender' => 'nullable|in:female,male',
-        'coordinator_id' => 'required|exists:users,id',
+        'coordinator_id' => 'required|exists:members,id',
     ];
 
     /**
@@ -38,7 +38,7 @@ class Ministry extends Model
      */
     public function coordinator()
     {
-        return $this->belongsTo('App\User', 'coordinator_id', 'id');
+        return $this->belongsTo('App\Models\Member', 'coordinator_id', 'id');
     }
 
     /**
