@@ -15,7 +15,22 @@ class Member extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email','birthdate', 'image', 'gender', 'phone', 'whatsapp', 'facebook', 'uuid', 'role_id', 'status_id'
+        'name', 'email', 'nickname', 'birthdate', 'image', 'gender', 'phone', 'whatsapp', 'facebook', 'uuid', 'role_id', 'status_id'
+    ];
+
+    /**
+     * The rules to validate the fillable attibutes.
+     */
+    public $rules = [
+        'name' => 'required',
+        'email' => 'filled|email',
+        'birthdate' => 'filled|date',
+        'gender' => 'required|in:female,male',
+        'phone' => 'filled',
+        'whatsapp' => 'filled',
+        'facebook' => 'filled|url',
+        'role_id' => 'exists:roles,id',
+        'status_id' => 'exists:status,id'
     ];
 
     /**

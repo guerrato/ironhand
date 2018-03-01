@@ -5,43 +5,53 @@ namespace App\Services;
 use Exception;
 use App\Repositories\GroupRepository;
 
-class Group {
+class Group 
+{
 
     private $group;
 
-    public function __construct(GroupRepository $group){
+    public function __construct(GroupRepository $group)
+    {
         $this->group = $group;
     }
 
-    public function getRules() {
+    public function getRules() 
+    {
         return $this->group->getRules();
     }
 
-    public function create($data) {
+    public function create($data) 
+    {
         return $this->group->create($data);
     }
 
-    public function update($data) {
+    public function update($data) 
+    {
         return $this->group->update($data, $data['id']);
     }
 
-    public function delete($id) {
+    public function delete($id) 
+    {
         return $this->group->delete($id);
     }
 
-    public function getAll() {
+    public function getAll() 
+    {
         return $this->group->all();
     }
     
-    public function getGroup($id) {
+    public function getGroup($id) 
+    {
         return $this->group->findOrFail($id);
     }
 
-    public function arrageMembers($data) {
+    public function arrageMembers($data) 
+    {
         return $this->group->arrageMembers($data);
     }
     
-    public function getMembers($id) {
+    public function getMembers($id) 
+    {
         return $this->group->getMembers($id);
     }
 }

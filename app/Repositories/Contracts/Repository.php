@@ -8,11 +8,13 @@ abstract class Repository implements RepositoryInterface
 {
     protected $model;
 
-    public function getModel() {
+    public function getModel() 
+    {
         return $this->model;
     }
 
-    public function getRules() {
+    public function getRules() 
+    {
         
         if(!empty($this->model->rules)) {
             return $this->model->rules;
@@ -21,7 +23,8 @@ abstract class Repository implements RepositoryInterface
         return [];
     }
 
-    public function setSlug($value, $id = 0) {
+    public function setSlug($value, $id = 0) 
+    {
         $slug = str_slug($value, '-');
 
         $existent = $this->model
@@ -36,24 +39,29 @@ abstract class Repository implements RepositoryInterface
         return $slug;
     }
 
-    public function all() {
+    public function all() 
+    {
         return $this->model->all();
     }
     
-    public function findOrFail($id) {
+    public function findOrFail($id) 
+    {
         return $this->model->findOrFail($id);
     }
 
-    public function create(array $data) {
+    public function create(array $data) 
+    {
         return $this->model->create($data);
     }
 
-    public function update(array $data, $id) {
+    public function update(array $data, $id) 
+    {
         $model = $this->model->findOrFail($id);
         return $model->update($data);
     }
 
-    public function delete($id) {
+    public function delete($id) 
+    {
         $model = $this->model->findOrFail($id);
         return $model->delete();
     }

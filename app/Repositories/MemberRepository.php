@@ -7,11 +7,13 @@ use App\Repositories\Contracts\Repository;
 
 class MemberRepository extends Repository
 {
-    public function __construct(Member $model) {
+    public function __construct(Member $model) 
+    {
         $this->model = $model;
     }
 
-    public function getCoordinators() {
+    public function getCoordinators() 
+    {
         return $this->getModel()
             ->join('roles', 'members.role_id', '=', 'roles.id')
             ->whereIn('roles.slug', ['coordinator', 'administator'])
@@ -19,7 +21,8 @@ class MemberRepository extends Repository
             ->get();
     }
 
-    public function getUserByGender($gender) {
+    public function getUserByGender($gender) 
+    {
         return $this->getModel()->where('gender', $gender)->get();
     }
 }

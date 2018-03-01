@@ -11,12 +11,14 @@ class GroupController extends Controller
 {
     private $group;
 
-    public function __construct(Group $group) {
+    public function __construct(Group $group) 
+    {
         $this->group = $group;
         $this->rules = $this->group->getRules();
     } 
 
-    public function create(Request $request, $ministry_id) {
+    public function create(Request $request, $ministry_id) 
+    {
 
         $data = $request->all();
         $data['ministry_id'] = $ministry_id;
@@ -31,7 +33,8 @@ class GroupController extends Controller
 
     }
 
-    public function update(Request $request, $ministry_id, $id) {
+    public function update(Request $request, $ministry_id, $id) 
+    {
 
         $data = $request->all();
         $data['ministry_id'] = $ministry_id;
@@ -47,7 +50,8 @@ class GroupController extends Controller
 
     }
 
-    public function delete(Request $request, $ministry_id, $id) {
+    public function delete(Request $request, $ministry_id, $id) 
+    {
 
         $validator = Validator::make(['id' => $id], ['id' => 'required|exists:groups,id']);
         
@@ -58,15 +62,18 @@ class GroupController extends Controller
         return $this->formatedSuccess($this->group->delete($id));
     }
 
-    public function getAll() {
+    public function getAll() 
+    {
         return $this->formatedSuccess($this->group->getAll());
     }
     
-    public function getGroup(Request $request, $ministry_id, $id) {
+    public function getGroup(Request $request, $ministry_id, $id) 
+    {
         return $this->formatedSuccess($this->group->getGroup($id));
     }
 
-    public function arrageMembers(Request $request, $ministry_id, $id) {
+    public function arrageMembers(Request $request, $ministry_id, $id) 
+    {
         $rules = [
             'group_id' => 'required|exists:groups,id',
             'members' => 'required|array'
@@ -84,7 +91,8 @@ class GroupController extends Controller
         return $this->formatedSuccess($this->group->arrageMembers($data));
     }
 
-    public function getMembers(Request $request, $ministry_id, $id) {
+    public function getMembers(Request $request, $ministry_id, $id) 
+    {
 
         $validator = Validator::make(['id' => $id], ['id' => 'required|exists:groups,id']);
         

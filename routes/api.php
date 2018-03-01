@@ -17,6 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::prefix('member')->group(function () {
+    Route::get('/', 'MemberController@getAll');
+    Route::get('/{id}', 'MemberController@getMember');
+    Route::post('/', 'MemberController@create');
+    Route::put('/{id}', 'MemberController@update');
+});
+
 Route::prefix('ministry')->group(function () {
     Route::get('/', 'MinistryController@getAll');
     Route::get('/{id}', 'MinistryController@getMinistry');

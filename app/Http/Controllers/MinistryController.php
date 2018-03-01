@@ -11,12 +11,14 @@ class MinistryController extends Controller
 {
     private $ministry;
 
-    public function __construct(Ministry $ministry) {
+    public function __construct(Ministry $ministry) 
+    {
         $this->ministry = $ministry;
         $this->rules = $this->ministry->getRules();
     } 
 
-    public function create(Request $request) {
+    public function create(Request $request) 
+    {
 
         $validator = Validator::make($request->all(), $this->rules);
         
@@ -28,7 +30,8 @@ class MinistryController extends Controller
 
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id) 
+    {
 
         $data = $request->all();
         $data['id'] = $id;
@@ -43,11 +46,13 @@ class MinistryController extends Controller
 
     }
 
-    public function getAll() {
+    public function getAll() 
+    {
         return $this->formatedSuccess($this->ministry->getAll());
     }
     
-    public function getMinistry(Request $request, $id) {
+    public function getMinistry(Request $request, $id) 
+    {
         return $this->formatedSuccess($this->ministry->getMinistry($id));
     }
 }
