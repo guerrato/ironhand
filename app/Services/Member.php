@@ -33,4 +33,9 @@ class Member
     {
         return $this->member->update($data, $data['id']);
     }
+
+    public function getAll() 
+    {
+        return $this->member->all();
+    }
 }

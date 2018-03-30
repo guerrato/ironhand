@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('member')->group(function () {
+Route::prefix('member')->middleware(['cors'])->group(function () {
     Route::get('/', 'MemberController@getAll');
     Route::get('/{id}', 'MemberController@getMember');
     Route::post('/', 'MemberController@create');

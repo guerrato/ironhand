@@ -44,4 +44,9 @@ class MemberController extends Controller
         return $this->formatedSuccess($this->member->update($data));
 
     }
+
+    public function getAll()
+    {
+        return $this->formatedSuccess($this->member->getAll());
+    }
 }
