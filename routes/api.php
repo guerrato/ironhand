@@ -24,7 +24,7 @@ Route::prefix('member')->middleware(['cors'])->group(function () {
     Route::put('/{id}', 'MemberController@update');
 });
 
-Route::prefix('ministry')->group(function () {
+Route::prefix('ministry')->middleware(['cors'])->group(function () {
     Route::get('/', 'MinistryController@getAll');
     Route::get('/{id}', 'MinistryController@getMinistry');
     Route::post('/', 'MinistryController@create');

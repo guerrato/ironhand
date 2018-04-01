@@ -47,7 +47,7 @@ class Ministry
 
     public function getAll() 
     {
-        return $this->ministry->all();
+        return $this->ministry->all()->load('coordinator');
     }
     
     public function getMinistry($id) 
