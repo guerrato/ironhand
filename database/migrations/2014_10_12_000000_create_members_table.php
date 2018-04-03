@@ -20,6 +20,7 @@ class CreateMembersTable extends Migration
             $table->string('nickname')->nullable();
             $table->date('birthdate')->nullable();
             $table->string('image')->nullable();
+            $table->string('image_name')->nullable();
             $table->enum('gender', ['female','male']);
             $table->string('phone')->nullable();
             $table->string('whatsapp')->nullable();

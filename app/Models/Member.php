@@ -15,7 +15,7 @@ class Member extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'nickname', 'birthdate', 'image', 'gender', 'phone', 'whatsapp', 'facebook', 'uuid', 'role_id', 'status_id'
+        'name', 'email', 'nickname', 'birthdate', 'image', 'image_name', 'gender', 'phone', 'whatsapp', 'facebook', 'uuid', 'role_id', 'status_id'
     ];
 
     /**
@@ -25,6 +25,8 @@ class Member extends Model
         'name' => 'required',
         'email' => 'filled|email',
         'birthdate' => 'filled|date',
+        'image' => 'filled|image',
+        'image_name' => 'filled',
         'gender' => 'required|in:female,male',
         'phone' => 'filled',
         'whatsapp' => 'filled',
