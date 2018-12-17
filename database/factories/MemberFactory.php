@@ -20,7 +20,7 @@ $factory->define(App\Models\Member::class, function (Faker $faker) {
     $data = [
         'name' => $faker->name,
         'email' => $faker->unique()->email(),
-        'nickname' => strtolower($faker->lastName),
+        'nickname' => $faker->lastName,
         'birthdate' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'image' => $faker->imageUrl(256, 256, 'people'),
         'image_name' => 'file.jpg', 
