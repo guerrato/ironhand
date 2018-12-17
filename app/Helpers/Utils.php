@@ -6,10 +6,6 @@ use Uuid;
 
 class Utils 
 {
-    public static function generateUuid() {
-        return (string)Uuid::generate();
-    }
-
     public static function getUpdateRules($tableName, array $rules, $id) {
         foreach ($rules as $key => $value) {
             if (strpos($value, 'unique:') !== false) {

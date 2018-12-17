@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use App\Helpers\Utils;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +20,7 @@ $factory->define(App\Models\Member::class, function (Faker $faker) {
     $data = [
         'name' => $faker->name,
         'email' => $faker->unique()->email(),
-        'nickname' => $faker->lastName,
+        'nickname' => strtolower($faker->lastName),
         'birthdate' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'image' => $faker->imageUrl(256, 256, 'people'),
         'image_name' => 'file.jpg', 
@@ -28,7 +28,7 @@ $factory->define(App\Models\Member::class, function (Faker $faker) {
         'phone' => $faker->tollFreePhoneNumber,
         'whatsapp' => $faker->tollFreePhoneNumber,
         'facebook' => $faker->url,
-        'uuid' => Utils::generateUuid(),
+        'uuid' => (string) Str::uuid(),
         'role_id' => rand(1, 3)
     ];
 
