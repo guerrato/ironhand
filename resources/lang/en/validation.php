@@ -131,6 +131,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'image' => [
+            'base64image' => 'The :attribute must be a base64 of the type PNG, JPG or SVG.'
+        ],
     ],
 
     /*

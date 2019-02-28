@@ -25,7 +25,7 @@ class Member extends Model
         'name' => 'required',
         'email' => 'filled|email',
         'birthdate' => 'filled|date',
-        'image' => 'filled|image',
+        'image' => 'filled|base64image',
         'image_name' => 'filled',
         'gender' => 'required|in:female,male',
         'phone' => 'filled',

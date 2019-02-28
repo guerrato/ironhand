@@ -3,19 +3,16 @@
 namespace App\Services;
 
 use Exception;
-use App\Helpers\Utils;
+use Illuminate\Support\Str;
 use App\Repositories\MemberRepository;
 
 class Member 
 {
-
-    private $utils;
     private $member;
 
-    public function __construct(MemberRepository $member, Utils $utils)
+    public function __construct(MemberRepository $member)
     {
         $this->member = $member;
-        $this->utils = $utils;
     }
 
     public function getRules() 
@@ -25,7 +22,7 @@ class Member
 
     public function create($data) 
     {
-        $data['uuid'] = $this->utils->generateUuid();
+        $data['uuid'] = Str::uuid();
         return $this->member->create($data);
     }
 
