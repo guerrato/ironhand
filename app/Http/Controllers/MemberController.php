@@ -19,13 +19,13 @@ class MemberController extends Controller
 
     public function create(Request $request) 
     {
-
         $validator = Validator::make($request->all(), $this->rules);
         
         if ($validator->fails()) {
             return response()->json(['success' => false, 'message' => $validator->errors()], 500);
         }
         
+        return $this->member->create($request->all());
         return $this->formatedSuccess($this->member->create($request->all()));
 
     }
