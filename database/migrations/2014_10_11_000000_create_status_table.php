@@ -13,7 +13,7 @@ class CreateStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('status', function (Blueprint $table) {
+        Schema::create('member_status', function (Blueprint $table) {
             $table->increments('id');
             $table->string('description', 100)->unique();
             $table->string('slug');
@@ -28,6 +28,6 @@ class CreateStatusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('status');
+        Schema::dropIfExists('member_status');
     }
 }

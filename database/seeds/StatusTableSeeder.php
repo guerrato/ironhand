@@ -33,6 +33,6 @@ class StatusTableSeeder extends Seeder
             $data[$key]['slug'] = str_slug($data[$key]['description'], '-');
         }
 
-        DB::table('status')->insert($data);
+        DB::table('member_status')->insert($data);
     }
 }

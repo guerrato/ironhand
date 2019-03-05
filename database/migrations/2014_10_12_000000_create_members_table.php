@@ -31,7 +31,8 @@ class CreateMembersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('role_id')->references('id')->on('member_roles');
+            $table->foreign('status_id')->references('id')->on('member_status');
         });
     }
 

@@ -30,6 +30,6 @@ class RolesTableSeeder extends Seeder
             $data[$key]['slug'] = str_slug($data[$key]['description'], '-');
         }
 
-        DB::table('roles')->insert($data);
+        DB::table('member_roles')->insert($data);
     }
 }
