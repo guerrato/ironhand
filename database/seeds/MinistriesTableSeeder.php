@@ -16,7 +16,7 @@ class MinistriesTableSeeder extends Seeder
 
         $data = [
             [
-                'name'                   => 'Celebra Conflurir',
+                'name'                   => 'Celebra Confluir',
                 'description'            => 'Nobis cumque aspernatur qui. Voluptatem repellendus ducimus consectetur quia facere et omnis. Quia odio pariatur fugiat error sequi voluptas. Porro ut omnis ullam eveniet.',
                 'required_gender'        => null,
                 'coordinator_id'         => ''
