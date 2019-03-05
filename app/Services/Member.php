@@ -26,8 +26,11 @@ class Member
     public function create($data) 
     {
         $data['uuid'] = Str::uuid();
-        $image_path = $this->utils->saveImage($data['image'], 'members');
-        $data['image'] = $image_path;
+
+        if (!empty($data['image'])) {
+            $data['image'] = $this->utils->saveImage($data['image'], 'members');
+        }
+        
         return $this->member->create($data);
     }
 

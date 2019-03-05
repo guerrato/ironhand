@@ -24,9 +24,9 @@ class Utils
         $mime = key_exists(1, $mime) ? $mime[1] : 'jpg';
         $fileName = Str::uuid() . '.' . $mime;
         $this->path = sprintf($this->path, $folder, substr($fileName, 0, 2), substr($fileName, 2, 2));
-        $dest = 'public'. $this->path . $fileName;
+        $dest = $this->path . $fileName;
 
-        Storage::put($dest, $img->stream());
+        Storage::put('public'. $dest, $img->stream());
 
         return $dest;
     }

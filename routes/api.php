@@ -17,11 +17,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('role')->group(function () {
-    Route::get('/listRolesByHierarchy/{role_id}', 'MemberRoleController@listRolesByHierarchy');
-});
-
 Route::prefix('member')->group(function () {
+    Route::prefix('role')->group(function () {
+        Route::get('/listRolesByHierarchy/{role_id}', 'MemberRoleController@listRolesByHierarchy');
+    });
+    
+    Route::prefix('status')->group(function () {
+        Route::get('/', 'MemberStatusController@getAll');
+    });
+
     Route::get('/', 'MemberController@getAll');
     Route::get('/{id}', 'MemberController@getMember');
     Route::post('/', 'MemberController@create');

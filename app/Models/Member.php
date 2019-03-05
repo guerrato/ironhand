@@ -23,7 +23,7 @@ class Member extends Model
      */
     public $rules = [
         'name' => 'required',
-        'email' => 'nullable|email|required_if:member_role,2,3',
+        'email' => 'required|email|unique:members,email',
         'birthdate' => 'nullable|date',
         'image' => 'nullable|base64image',
         'image_name' => 'nullable|required_with:image',
