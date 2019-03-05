@@ -15,6 +15,10 @@ class CustomValidationServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('base64image', function ($attribute, $value, $parameters, $validator) {
+            if (empty($value)) {
+                return true;
+            }
+
             $explode = explode(',', $value);
             $allow = ['png', 'jpg', 'svg'];
             $format = str_replace(

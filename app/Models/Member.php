@@ -23,16 +23,14 @@ class Member extends Model
      */
     public $rules = [
         'name' => 'required',
-        'email' => 'filled|email',
-        'birthdate' => 'filled|date',
-        'image' => 'filled|base64image',
-        'image_name' => 'filled',
+        'email' => 'nullable|email|required_if:member_role,2,3',
+        'birthdate' => 'nullable|date',
+        'image' => 'nullable|base64image',
+        'image_name' => 'nullable|required_with:image',
         'gender' => 'required|in:female,male',
-        'phone' => 'filled',
-        'whatsapp' => 'filled',
-        'facebook' => 'filled|url',
-        'role_id' => 'exists:roles,id',
-        'status_id' => 'exists:status,id'
+        'facebook' => 'nullable|url',
+        'role_id' => 'required|exists:member_roles,id',
+        'status_id' => 'required|exists:member_status,id'
     ];
 
     /**
@@ -40,7 +38,7 @@ class Member extends Model
      */
     public function role()
     {
-        return $this->belongsTo('App\Models\Role', 'role_id', 'id');
+        return $this->belongsTo('App\Models\MemberRole', 'role_id', 'id');
     }
     
     /**
@@ -48,7 +46,7 @@ class Member extends Model
      */
     public function status()
     {
-        return $this->belongsTo('App\Models\Status', 'status_id', 'id');
+        return $this->belongsTo('App\Models\MemberStatus', 'status_id', 'id');
     }
 
     /**

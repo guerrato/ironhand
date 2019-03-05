@@ -15,7 +15,7 @@ class MemberRepository extends Repository
     public function getCoordinators() 
     {
         return $this->getModel()
-            ->join('roles', 'members.role_id', '=', 'roles.id')
+            ->join('member_roles', 'members.role_id', '=', 'roles.id')
             ->whereIn('roles.slug', ['coordinator', 'administator'])
             ->select('members.*')
             ->get();

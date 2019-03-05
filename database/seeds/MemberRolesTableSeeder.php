@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class RolesTableSeeder extends Seeder
+class MemberRolesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,15 +14,15 @@ class RolesTableSeeder extends Seeder
         $data = [
             [
                 'id' => 1,
-                'description' => 'member'
+                'description' => 'Member'
             ],
             [
                 'id' => 2,
-                'description' => 'coordinator'
+                'description' => 'Coordinator'
             ],
             [
                 'id' => 3,
-                'description' => 'administator'
+                'description' => 'Administrator'
             ]
         ];
 

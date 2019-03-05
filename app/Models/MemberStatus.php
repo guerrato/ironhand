@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class MemberStatus extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'roles';
-
+    protected $table = 'member_status';
+    
     /**
      * Indicates if the model should be timestamped.
      *
@@ -30,10 +30,10 @@ class Role extends Model
     ];
 
     /**
-     * Get the members that have the role.
+     * Get the users that contains have status.
      */
     public function members()
     {
-        return $this->hasMany('App\Models\Member', 'role_id', 'id');
+        return $this->hasMany('App\Models\Member', 'status_id', 'id');
     }
 }
