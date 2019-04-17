@@ -39,6 +39,11 @@ class Member
         return $this->member->update($data, $data['id']);
     }
 
+    public function getById($id = null) 
+    {
+        return $this->member->getById($id);
+    }
+
     public function getAll() 
     {
         return $this->member->all();

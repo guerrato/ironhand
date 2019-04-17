@@ -46,6 +46,11 @@ class MemberController extends Controller
 
     }
 
+    public function getById(Request $request, $id = null) 
+    {
+        return $this->formatedSuccess($this->member->getById($id));
+    }
+
     public function getAll()
     {
         return $this->formatedSuccess($this->member->getAll());

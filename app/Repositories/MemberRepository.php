@@ -25,4 +25,9 @@ class MemberRepository extends Repository
     {
         return $this->getModel()->where('gender', $gender)->get();
     }
+
+    public function getById($id = null) 
+    {
+        return $this->model->findOrFail($id);
+    }
 }

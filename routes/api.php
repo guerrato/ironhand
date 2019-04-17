@@ -27,7 +27,7 @@ Route::prefix('member')->group(function () {
     });
 
     Route::get('/', 'MemberController@getAll');
-    Route::get('/{id}', 'MemberController@getMember');
+    Route::get('/{id}', 'MemberController@getById');
     Route::post('/', 'MemberController@create');
     Route::put('/{id}', 'MemberController@update');
 });
