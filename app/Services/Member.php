@@ -36,6 +36,15 @@ class Member
 
     public function update($data) 
     {
+        $stored = $this->getById($data['id']);
+        
+        if (!empty($data['image'])) {
+            $data['image'] = $this->utils->saveImage($data['image'], 'members');
+            if (!empty($stored->image)) {
+                $this->utils->removeFile($stored->image);
+            }
+        }
+
         return $this->member->update($data, $data['id']);
     }
 

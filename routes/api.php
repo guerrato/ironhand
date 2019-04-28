@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('member')->group(function () {
+Route::prefix('member')->middleware('cors')->group(function () {
     Route::prefix('role')->group(function () {
         Route::get('/listRolesByHierarchy/{role_id}', 'MemberRoleController@listRolesByHierarchy');
     });
@@ -32,7 +32,7 @@ Route::prefix('member')->group(function () {
     Route::put('/{id}', 'MemberController@update');
 });
 
-Route::prefix('ministry')->group(function () {
+Route::prefix('ministry')->middleware('cors')->group(function () {
     Route::get('/', 'MinistryController@getAll');
     Route::get('/{id}', 'MinistryController@getMinistry');
     Route::post('/', 'MinistryController@create');
