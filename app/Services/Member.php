@@ -48,6 +48,11 @@ class Member
         return $this->member->update($data, $data['id']);
     }
 
+    public function delete($id) 
+    {
+        return $this->member->delete($id);
+    }
+
     public function getById($id = null) 
     {
         return $this->member->getById($id);

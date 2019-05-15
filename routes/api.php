@@ -30,6 +30,7 @@ Route::prefix('member')->middleware('cors')->group(function () {
     Route::get('/{id}', 'MemberController@getById');
     Route::post('/', 'MemberController@create');
     Route::put('/{id}', 'MemberController@update');
+    Route::delete('/{id}', 'MemberController@delete');
 });
 
 Route::prefix('ministry')->middleware('cors')->group(function () {

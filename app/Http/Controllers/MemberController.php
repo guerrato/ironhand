@@ -19,7 +19,6 @@ class MemberController extends Controller
 
     public function create(Request $request) 
     {
-        // return $this->formatedSuccess($request->all());
         $validator = Validator::make($request->all(), $this->rules);
         
         if ($validator->fails()) {
@@ -44,6 +43,17 @@ class MemberController extends Controller
 
         return $this->formatedSuccess($this->member->update($data));
 
+    }
+
+    public function delete(Request $request, $id) 
+    {
+        $validator = Validator::make(['id' => $id], ['id' => 'required|exists:members,id']);
+        
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 500);
+        }
+
+        return $this->formatedSuccess($this->member->delete($id));
     }
 
     public function getById(Request $request, $id = null) 
