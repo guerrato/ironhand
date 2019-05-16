@@ -62,4 +62,9 @@ class Member
     {
         return $this->member->all();
     }
+   
+    public function getCoordinators() 
+    {
+        return $this->member->getCoordinators();
+    }
 }

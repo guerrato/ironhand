@@ -65,4 +65,9 @@ class MemberController extends Controller
     {
         return $this->formatedSuccess($this->member->getAll());
     }
+
+    public function getCoordinators() 
+    {
+        return $this->formatedSuccess($this->member->getCoordinators());
+    }
 }

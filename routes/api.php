@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('member')->middleware('cors')->group(function () {
     Route::prefix('role')->group(function () {
-        Route::get('/listRolesByHierarchy/{role_id}', 'MemberRoleController@listRolesByHierarchy');
+        Route::get('/listRolesByHierarchy/{role_id}', 'MemberRoleController@listRolesByHierarchy')->where('role_id', '[0-9]+');
     });
     
     Route::prefix('status')->group(function () {
@@ -27,25 +27,27 @@ Route::prefix('member')->middleware('cors')->group(function () {
     });
 
     Route::get('/', 'MemberController@getAll');
-    Route::get('/{id}', 'MemberController@getById');
+    Route::get('/{id}', 'MemberController@getById')->where('id', '[0-9]+');
     Route::post('/', 'MemberController@create');
-    Route::put('/{id}', 'MemberController@update');
-    Route::delete('/{id}', 'MemberController@delete');
+    Route::put('/{id}', 'MemberController@update')->where('id', '[0-9]+');
+    Route::delete('/{id}', 'MemberController@delete')->where('id', '[0-9]+');
+    Route::get('getcoordinators', 'MemberController@getCoordinators');
+    
 });
 
 Route::prefix('ministry')->middleware('cors')->group(function () {
     Route::get('/', 'MinistryController@getAll');
-    Route::get('/{id}', 'MinistryController@getMinistry');
+    Route::get('/{id}', 'MinistryController@getMinistry')->where('id', '[0-9]+');
     Route::post('/', 'MinistryController@create');
-    Route::put('/{id}', 'MinistryController@update');
+    Route::put('/{id}', 'MinistryController@update')->where('id', '[0-9]+');
 
     Route::prefix('{ministry_id}/group')->group(function () {
         Route::get('/', 'GroupController@getAll');
-        Route::get('/{id}', 'GroupController@getGroup');
+        Route::get('/{id}', 'GroupController@getGroup')->where('id', '[0-9]+');
         Route::post('/', 'GroupController@create');
-        Route::put('/{id}', 'GroupController@update');
-        Route::delete('/{id}', 'GroupController@delete');
-        Route::put('/{id}/arrangemembers', 'GroupController@arrageMembers');
-        Route::get('/{id}/getmembers', 'GroupController@getMembers');
+        Route::put('/{id}', 'GroupController@update')->where('id', '[0-9]+');
+        Route::delete('/{id}', 'GroupController@delete')->where('id', '[0-9]+');
+        Route::put('/{id}/arrangemembers', 'GroupController@arrageMembers')->where('id', '[0-9]+');
+        Route::get('/{id}/getmembers', 'GroupController@getMembers')->where('id', '[0-9]+');
     });
 });
