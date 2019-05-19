@@ -66,8 +66,19 @@ class MemberController extends Controller
         return $this->formatedSuccess($this->member->getAll());
     }
 
-    public function getCoordinators() 
+    public function getCoordinators(Request $request) 
     {
-        return $this->formatedSuccess($this->member->getCoordinators());
+        return $this->formatedSuccess($this->member->getCoordinators($request->all()));
+    }
+
+    public function getNotAllocatedCoordinators(Request $request, $ministry_id)
+    {
+        $validator = Validator::make(['ministry_id' => $ministry_id], ['ministry_id' => 'required|exists:ministries,id']);
+        
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 500);
+        }
+
+        return $this->formatedSuccess($this->member->getNotAllocatedCoordinators($ministry_id, $request->all()));
     }
 }

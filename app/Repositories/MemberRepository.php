@@ -3,22 +3,64 @@
 namespace App\Repositories;
 
 use App\Models\Member;
+use App\Repositories\GroupRepository;
 use App\Repositories\Contracts\Repository;
 
 class MemberRepository extends Repository
 {
-    public function __construct(Member $model) 
+    public function __construct(Member $model, GroupRepository $group) 
     {
         $this->model = $model;
+        $this->group = $group;
     }
 
-    public function getCoordinators() 
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $member_filters that only accepts filters keys with the same names of model attributes
+     * @return App\Models\Member
+     */
+    public function getCoordinators($member_filters = []) 
     {
-        return $this->getModel()
+        $fillable = $this->model->getFillable();
+
+        $coords = $this->getModel()
             ->join('member_roles', 'members.role_id', '=', 'member_roles.id')
-            ->whereIn('member_roles.slug', ['coordinator', 'administator'])
-            ->select('members.*')
-            ->get();
+            ->whereIn('member_roles.slug', ['coordinator', 'administrator']);
+        
+        foreach ($member_filters as $key => $value) {
+            if (in_array($key, $fillable)) {
+                $coords = $coords->where("members.$key", $value);
+            }
+        }
+
+        return $coords->select('members.*')->get();
+    }
+    
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  integer  $ministry_id
+     * @param  array  $member_filters that only accepts filters keys with the same names of model attributes
+     * @return App\Models\Member
+     */
+    public function getNotAllocatedCoordinators($ministry_id, $member_filters = []) 
+    {
+        $fillable = $this->model->getFillable();
+
+        $groups_leader = array_column($this->group->getGroupsByMinistry($ministry_id)->toArray(), 'leader_id');
+
+        $coords = $this->getModel()
+            ->join('member_roles', 'members.role_id', '=', 'member_roles.id')
+            ->whereIn('member_roles.slug', ['coordinator', 'administrator']);
+            
+        foreach ($member_filters as $key => $value) {
+            if (in_array($key, $fillable)) {
+                $coords = $coords->where("members.$key", $value);
+            }
+        }
+
+        return $coords->whereNotIn('members.id', $groups_leader)->select('members.*')->orderBy('members.id')->get();
     }
 
     public function getUserByGender($gender) 

@@ -63,8 +63,13 @@ class Member
         return $this->member->all();
     }
    
-    public function getCoordinators() 
+    public function getCoordinators($member_filters = []) 
     {
-        return $this->member->getCoordinators();
+        return $this->member->getCoordinators($member_filters);
+    }
+
+    public function getNotAllocatedCoordinators($ministry_id, $member_filters = [])
+    {
+        return $this->member->getNotAllocatedCoordinators($ministry_id, $member_filters);
     }
 }

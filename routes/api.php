@@ -31,7 +31,8 @@ Route::prefix('member')->middleware('cors')->group(function () {
     Route::post('/', 'MemberController@create');
     Route::put('/{id}', 'MemberController@update')->where('id', '[0-9]+');
     Route::delete('/{id}', 'MemberController@delete')->where('id', '[0-9]+');
-    Route::get('getcoordinators', 'MemberController@getCoordinators');
+    Route::get('coordinators', 'MemberController@getCoordinators');
+    Route::get('notallocatedcoordinators/{ministry_id}', 'MemberController@getNotAllocatedCoordinators')->where('ministry_id', '[0-9]+');
     
 });
 

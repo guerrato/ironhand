@@ -50,4 +50,8 @@ class GroupRepository extends Repository
         return $this->findOrFail($id)->members;
     }
     
+    public function getGroupsByMinistry($ministry_id)
+    {
+        return $this->model->where('ministry_id', $ministry_id)->get();
+    }
 }
