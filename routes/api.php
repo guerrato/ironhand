@@ -33,7 +33,7 @@ Route::prefix('member')->middleware('cors')->group(function () {
     Route::delete('/{id}', 'MemberController@delete')->where('id', '[0-9]+');
     Route::get('coordinators', 'MemberController@getCoordinators');
     Route::get('notallocatedcoordinators/{ministry_id}', 'MemberController@getNotAllocatedCoordinators')->where('ministry_id', '[0-9]+');
-    
+
 });
 
 Route::prefix('ministry')->middleware('cors')->group(function () {
@@ -49,6 +49,6 @@ Route::prefix('ministry')->middleware('cors')->group(function () {
         Route::put('/{id}', 'GroupController@update')->where('id', '[0-9]+');
         Route::delete('/{id}', 'GroupController@delete')->where('id', '[0-9]+');
         Route::put('/{id}/arrangemembers', 'GroupController@arrageMembers')->where('id', '[0-9]+');
-        Route::get('/{id}/getmembers', 'GroupController@getMembers')->where('id', '[0-9]+');
+        Route::get('/groupsofministry', 'GroupController@getGroupsOfMinistry');
     });
 });

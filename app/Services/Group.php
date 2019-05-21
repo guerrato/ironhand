@@ -54,4 +54,9 @@ class Group
     {
         return $this->group->getMembers($id);
     }
+
+    public function getGroupsOfMinistry($ministry_id) 
+    {
+        return $this->group->getGroupsOfMinistry($ministry_id);
+    }
 }

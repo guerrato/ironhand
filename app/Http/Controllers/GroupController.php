@@ -102,4 +102,16 @@ class GroupController extends Controller
 
         return $this->formatedSuccess($this->group->getMembers($id));
     }
+    
+    public function getGroupsOfMinistry(Request $request, $ministry_id) 
+    {
+
+        $validator = Validator::make(['ministry_id' => $ministry_id], ['ministry_id' => 'required|exists:ministries,id']);
+        
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 500);
+        }
+
+        return $this->formatedSuccess($this->group->getGroupsOfMinistry($ministry_id));
+    }
 }

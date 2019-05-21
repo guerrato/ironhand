@@ -48,7 +48,7 @@ class MemberRepository extends Repository
     {
         $fillable = $this->model->getFillable();
 
-        $groups_leader = array_column($this->group->getGroupsByMinistry($ministry_id)->toArray(), 'leader_id');
+        $groups_leader = array_column($this->group->getGroupsOfMinistry($ministry_id)->toArray(), 'leader_id');
 
         $coords = $this->getModel()
             ->join('member_roles', 'members.role_id', '=', 'member_roles.id')

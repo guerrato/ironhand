@@ -60,7 +60,7 @@ class Member
 
     public function getAll() 
     {
-        return $this->member->all();
+        return $this->member->with('leader')->all();
     }
    
     public function getCoordinators($member_filters = []) 
