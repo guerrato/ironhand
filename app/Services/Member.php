@@ -72,4 +72,9 @@ class Member
     {
         return $this->member->getNotAllocatedCoordinators($ministry_id, $member_filters);
     }
+    
+    public function getNotAllocatedMembers($ministry_id, $member_filters = [])
+    {
+        return $this->member->getNotAllocatedMembers($ministry_id, $member_filters);
+    }
 }

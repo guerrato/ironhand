@@ -62,6 +62,34 @@ class MemberRepository extends Repository
 
         return $coords->whereNotIn('members.id', $groups_leader)->select('members.*')->orderBy('members.id')->get();
     }
+   
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  integer  $ministry_id
+     * @param  array  $member_filters that only accepts filters keys with the same names of model attributes
+     * @return App\Models\Member
+     */
+    public function getNotAllocatedMembers($ministry_id, $member_filters = []) 
+    {
+        $fillable = $this->model->getFillable();
+
+        $members = $this->getModel()
+            ->whereNotIn('members.id', function($query) use ($ministry_id) { 
+                $query->select('members_in_group.member_id')
+                    ->from('members_in_group')
+                    ->join('groups', 'members_in_group.group_id', '=', 'groups.id')
+                    ->where('groups.ministry_id', $ministry_id);
+            });
+            
+        foreach ($member_filters as $key => $value) {
+            if (in_array($key, $fillable)) {
+                $members = $members->where("members.$key", $value);
+            }
+        }
+
+        return $members->select('members.*')->orderBy('members.id')->get();
+    }
 
     public function getUserByGender($gender) 
     {
