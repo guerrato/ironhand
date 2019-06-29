@@ -48,7 +48,7 @@ Route::prefix('ministry')->middleware('cors')->group(function () {
         Route::post('/', 'GroupController@create');
         Route::put('/{id}', 'GroupController@update')->where('id', '[0-9]+');
         Route::delete('/{id}', 'GroupController@delete')->where('id', '[0-9]+');
-        Route::put('/{id}/arrangemembers', 'GroupController@arrageMembers')->where('id', '[0-9]+');
+        Route::put('/{id}/arrangemembers', 'GroupController@arrangeMember')->where('id', '[0-9]+');
         Route::get('/groupsofministry', 'GroupController@getGroupsOfMinistry');
         Route::get('/{id}/getmembers', 'GroupController@getMembers')->where('id', '[0-9]+');
     });

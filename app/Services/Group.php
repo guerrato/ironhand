@@ -32,9 +32,9 @@ class Group
             DB::commit();
 
             return $group;
-        } catch (Exception $th) {
+        } catch (Exception $e) {
             DB::rollBack();
-            return new Exception($th);
+            return new Exception($e);
         }
     }
 
@@ -75,9 +75,21 @@ class Group
         return $this->group->findOrFail($id);
     }
 
-    public function arrageMembers($data)
+    public function arrangeMember($data)
     {
-        return $this->group->arrageMembers($data);
+        DB::beginTransaction();
+
+        try {
+            $result = $this->group->arrangeMember($data);
+
+            DB::commit();
+
+            return $result;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return new Exception($e);
+        }
+
     }
 
     public function getMembers($id)

@@ -5,30 +5,30 @@ namespace App\Repositories;
 use App\Models\Group;
 use App\Repositories\Contracts\Repository;
 
-class GroupRepository extends Repository 
+class GroupRepository extends Repository
 {
-    
-    public function __construct(Group $model) 
+
+    public function __construct(Group $model)
     {
         $this->model = $model;
 
     }
 
-    public function create(array $data) 
+    public function create(array $data)
     {
         $data['slug'] = $this->setSlug($data['description']);
         return parent::create($data);
 
     }
-    
-    public function update(array $data, $id) 
+
+    public function update(array $data, $id)
     {
         $data['slug'] = $this->setSlug($data['description'], $data['id']);
         return parent::update($data, $id);
 
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
         $group = $this->findOrFail($id);
         $group->members()->detach();
@@ -37,19 +37,21 @@ class GroupRepository extends Repository
     }
 
 
-    public function arrageMembers($data) 
+    public function arrangeMember($data)
     {
         $group = $this->findOrFail($data['group_id']);
         $group->members()->detach();
 
-        return $group->members()->attach($data['members']);
+        $members = array_unique(array_merge([$group->leader_id], $data['members']));
+
+        return $group->members()->attach($members);
     }
 
-    public function getMembers($id) 
+    public function getMembers($id)
     {
         return $this->findOrFail($id)->members;
     }
-    
+
     public function getGroupsOfMinistry($ministry_id)
     {
         return $this->model
