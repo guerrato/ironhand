@@ -33,7 +33,7 @@ Route::prefix('member')->middleware('cors')->group(function () {
     Route::delete('/{id}', 'MemberController@delete')->where('id', '[0-9]+');
     Route::get('coordinators', 'MemberController@getCoordinators');
     Route::get('notallocatedcoordinators/{ministry_id}', 'MemberController@getNotAllocatedCoordinators')->where('ministry_id', '[0-9]+');
-
+    Route::get('notallocatedmembers/{ministry_id}', 'MemberController@getNotAllocatedMembers')->where('ministry_id', '[0-9]+');
 });
 
 Route::prefix('ministry')->middleware('cors')->group(function () {
