@@ -40,11 +40,10 @@ class GroupRepository extends Repository
     public function arrangeMember($data)
     {
         $group = $this->findOrFail($data['group_id']);
-        $group->members()->detach();
 
         $members = array_unique(array_merge([$group->leader_id], $data['members']));
 
-        return $group->members()->attach($members);
+        return $group->members()->sync($members);
     }
 
     public function getMembers($id)
