@@ -5,15 +5,17 @@ namespace App\Services;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\GroupRepository;
+use App\Repositories\MemberRepository;
 
 class Group
 {
 
     private $group;
 
-    public function __construct(GroupRepository $group)
+    public function __construct(GroupRepository $group, MemberRepository $member)
     {
         $this->group = $group;
+        $this->member = $member;
     }
 
     public function getRules()
@@ -45,6 +47,12 @@ class Group
         try {
             $stored = $this->getGroup($data['id']);
 
+             $member_gender = $this->member->findOrFail($data['leader_id'])->gender;
+
+            if ($member_gender != $data['required_gender'] && !empty($data['required_gender'])) {
+                throw new Exception("The leader gender does not match the group gender.", 1);
+            }
+
             if ($stored->leader_id != $data['leader_id']) {
                 $stored->members()->attach($data['leader_id']);
                 $stored->members()->detach($stored->leader_id);
@@ -56,7 +64,7 @@ class Group
             return $group;
         } catch (Exception $th) {
             DB::rollBack();
-            return new Exception($th);
+            throw new Exception($th, 500);
         }
     }
 
