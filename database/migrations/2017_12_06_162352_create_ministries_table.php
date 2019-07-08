@@ -19,10 +19,8 @@ class CreateMinistriesTable extends Migration
             $table->string('slug');
             $table->mediumText('description')->nullable();
             $table->enum('required_gender', ['female','male'])->nullable();
-            $table->integer('coordinator_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('coordinator_id')->references('id')->on('members');
         });
     }
 

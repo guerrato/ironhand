@@ -22,18 +22,14 @@ $factory->define(App\Models\Member::class, function (Faker $faker) {
         'email' => $faker->unique()->email(),
         'nickname' => $faker->lastName,
         'birthdate' => $faker->date($format = 'Y-m-d', $max = 'now'),
-        'image' => $faker->imageUrl(256, 256, 'people'),
-        'image_name' => 'file.jpg', 
+        'image' => null,
+        'image_name' => null,
         'gender' => rand(1, 2),
         'phone' => $faker->tollFreePhoneNumber,
         'whatsapp' => $faker->tollFreePhoneNumber,
         'facebook' => $faker->url,
-        'uuid' => (string) Str::uuid(),
-        'role_id' => rand(1, 3)
+        'uuid' => (string) Str::uuid()
     ];
-
-    $data['image_name'] = explode('?', $data['image']);
-    $data['image_name'] = $data['image_name'][count($data['image_name']) - 1] . '.jpg';
 
     return $data;
 });
