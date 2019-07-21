@@ -48,15 +48,23 @@ class MemberController extends Controller
 
     }
 
-    public function delete(Request $request, $id)
+    public function delete(Request $request, $ministry_id, $id)
     {
-        $validator = Validator::make(['id' => $id], ['id' => 'required|exists:members,id']);
+        $data = [
+            'id' => $id,
+            'ministry_id' => $ministry_id
+        ];
+
+        $validator = Validator::make($data, [
+            'id' => 'required|exists:members,id',
+            'ministry_id' => 'required|exists:ministries,id'
+        ]);
 
         if ($validator->fails()) {
             return response()->json(['success' => false, 'message' => $validator->errors()], 500);
         }
 
-        return $this->formatedSuccess($this->member->delete($id));
+        return $this->formatedSuccess($this->member->delete($data));
     }
 
     public function getById(Request $request, $id = null)

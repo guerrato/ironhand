@@ -37,7 +37,7 @@ class Member
 
             $member = $this->member->create($data);
 
-            $member->roles()->attach($data['role_id'], ['ministry_id' => $data['ministry_id']]);
+            $member->ministries()->attach($data['ministry_id'], ['role_id' => $data['role_id']]);
             DB::commit();
 
             return $member;
@@ -53,7 +53,6 @@ class Member
 
         try {
             $stored = $this->getById($data['id']);
-            $role = $stored->roles()->wherePivot('ministry_id', $data['ministry_id'])->first();
 
             if (!empty($data['image'])) {
                 $data['image'] = $this->utils->saveImage($data['image'], 'members');
@@ -62,22 +61,45 @@ class Member
                 }
             }
 
-            $member = $this->member->update($data, $data['id']);
+            $result = $this->member->update($data, $data['id']);
 
-            $stored->roles()->wherePivot('ministry_id', $data['ministry_id'])->sync([$data['role_id'] => ['ministry_id' => $data['ministry_id']]]);
+            $role = $stored->ministries()->wherePivot('ministry_id', $data['ministry_id'])->first();
+            if (!empty($role)) {
+                $stored->ministries()->updateExistingPivot($data['ministry_id'], ['role_id' => $data['role_id']]);
+            } else {
+                $stored->ministries()->attach($data['ministry_id'], ['role_id' => $data['role_id']]);
+            }
             DB::commit();
 
-            return $member;
+            return $result;
         } catch (Exception $e) {
             DB::rollBack();
             throw new Exception($e->getMessage());
         }
-
     }
 
-    public function delete($id)
+    public function delete($data)
     {
-        return $this->member->delete($id);
+        DB::beginTransaction();
+
+        try {
+            $stored = $this->getById($data['id']);
+            $stored->ministries()->wherePivot('ministry_id', $data['ministry_id'])->detach();
+            $roles = $stored->ministries()->get();
+
+            $result = true;
+
+            if (empty($roles->toArray())) {
+                $result = $this->member->delete($data['id']);
+            }
+
+            DB::commit();
+
+            return $result;
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getById($id = null)

@@ -62,11 +62,11 @@ class Member extends Model
     }
 
     /**
-     * Get the roles that the member has in a ministry.
+     * Get the ministries that the member intoa and with the roles.
      */
-    public function roles(){
-        return $this->belongsToMany("App\Models\MemberRole", 'member_has_roles', 'member_id', 'role_id')
-        ->withPivot('ministry_id')
+    public function ministries(){
+        return $this->belongsToMany("App\Models\MemberRole", 'member_has_roles', 'member_id', 'ministry_id')
+        ->withPivot('role_id')
         ->withTimestamps();
     }
 
