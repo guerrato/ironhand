@@ -102,9 +102,15 @@ class Member
         }
     }
 
-    public function getById($id = null)
+    public function getById($ministry_id, $id = null)
     {
-        return $this->member->getById($id);
+        $member = $this->member->getById($id);
+        $role = $member->roles()->wherePivot('ministry_id', $ministry_id)->first();
+        if (!empty($role)) {
+            $member->role_id = $role->id;
+        }
+
+        return $member;
     }
 
     public function getAll()

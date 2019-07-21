@@ -110,6 +110,6 @@ class MemberRepository extends Repository
 
     public function getById($id = null)
     {
-        return $this->model->findOrFail($id);
+        return $this->findOrFail($id);
     }
 }

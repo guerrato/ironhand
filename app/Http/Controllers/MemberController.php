@@ -67,9 +67,9 @@ class MemberController extends Controller
         return $this->formatedSuccess($this->member->delete($data));
     }
 
-    public function getById(Request $request, $id = null)
+    public function getById(Request $request, $ministry_id, $id = null)
     {
-        return $this->formatedSuccess($this->member->getById($id));
+        return $this->formatedSuccess($this->member->getById($ministry_id, $id));
     }
 
     public function getAll()
