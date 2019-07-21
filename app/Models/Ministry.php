@@ -19,7 +19,7 @@ class Ministry extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'slug', 'description', 'required_gender', 'coordinator_id'
+        'name', 'slug', 'description', 'required_gender'
     ];
 
     /**
@@ -30,16 +30,7 @@ class Ministry extends Model
         'slug' => 'unique:ministries,slug',
         'description' => 'nullable',
         'required_gender' => 'nullable|in:female,male',
-        'coordinator_id' => 'required|exists:members,id',
     ];
-
-    /**
-     * Get the user that coordinate the ministry.
-     */
-    public function coordinator()
-    {
-        return $this->belongsTo('App\Models\Member', 'coordinator_id', 'id');
-    }
 
     /**
      * Get the groups that belongs to the ministry.

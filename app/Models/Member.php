@@ -15,7 +15,7 @@ class Member extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'nickname', 'birthdate', 'image', 'image_name', 'gender', 'phone', 'whatsapp', 'facebook', 'uuid', 'role_id', 'status_id'
+        'name', 'email', 'nickname', 'birthdate', 'image', 'image_name', 'gender', 'phone', 'whatsapp', 'facebook', 'uuid', 'status_id'
     ];
 
     /**
@@ -29,18 +29,22 @@ class Member extends Model
         'image_name' => 'nullable|required_with:image',
         'gender' => 'required|in:female,male',
         'facebook' => 'nullable|url',
+        'status_id' => 'required|exists:member_status,id',
         'role_id' => 'required|exists:member_roles,id',
-        'status_id' => 'required|exists:member_status,id'
+        'ministry_id' => 'required|exists:ministries,id'
     ];
 
     /**
      * Get the role that is related to the user.
      */
-    public function role()
-    {
-        return $this->belongsTo('App\Models\MemberRole', 'role_id', 'id');
-    }
-    
+    // public function role()
+    // {
+    //     return $this->belongsToMany('App\Models\MemberRole', 'member_has_roles', 'role_id', 'member_id')
+    //         ->withPivot(['ministry_id'])
+    //         ->wherePivot('ministry_id', 1)
+    //         ->withTimestamps();
+    // }
+
     /**
      * Get the status that is related to the user.
      */
@@ -50,19 +54,20 @@ class Member extends Model
     }
 
     /**
-     * Get the ministries that the user coordinates.
-     */
-    public function ministries()
-    {
-        return $this->hasMany('App\Models\Ministry', 'coordinator_id', 'id');
-    }
-
-    /**
      * Get the groups that the user leads.
      */
     public function groups()
     {
-        return $this->hasMany('App\Models\Groups', 'leader_id', 'id');
+        return $this->hasMany('App\Models\Group', 'leader_id', 'id');
+    }
+
+    /**
+     * Get the roles that the member has in a ministry.
+     */
+    public function roles(){
+        return $this->belongsToMany("App\Models\MemberRole", 'member_has_roles', 'member_id', 'role_id')
+        ->withPivot('ministry_id')
+        ->withTimestamps();
     }
 
     /**

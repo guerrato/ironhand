@@ -28,12 +28,4 @@ class MemberRole extends Model
     protected $fillable = [
         'description', 'slug'
     ];
-
-    /**
-     * Get the members that have the role.
-     */
-    public function members()
-    {
-        return $this->hasMany('App\Models\Member', 'role_id', 'id');
-    }
 }

@@ -20,12 +20,14 @@ class MemberRepository extends Repository
      * @param  array  $member_filters that only accepts filters keys with the same names of model attributes
      * @return App\Models\Member
      */
-    public function getCoordinators($member_filters = [])
+    public function getCoordinators($ministry_id, $member_filters = [])
     {
         $fillable = $this->model->getFillable();
 
         $coords = $this->getModel()
-            ->join('member_roles', 'members.role_id', '=', 'member_roles.id')
+            ->join('member_has_roles', 'members.id', '=', 'member_has_roles.member_id')
+            ->join('member_roles', 'member_has_roles.role_id', '=', 'member_roles.id')
+            ->where('member_has_roles.ministry_id', $ministry_id)
             ->whereIn('member_roles.slug', ['coordinator', 'administrator']);
 
         foreach ($member_filters as $key => $value) {
@@ -48,8 +50,8 @@ class MemberRepository extends Repository
     {
         $fillable = $this->model->getFillable();
 
+        $this->allocated = [];
         $allocated = [];
-
         $this->group->getGroupsOfMinistry($ministry_id)->each(function($grp) {
             $this->allocated[] = $grp->leader_id;
             $this->allocated = array_merge($this->allocated, array_column($grp->members->toArray(), 'id'));
@@ -59,7 +61,9 @@ class MemberRepository extends Repository
         unset($this->allocated);
 
         $coords = $this->getModel()
-            ->join('member_roles', 'members.role_id', '=', 'member_roles.id')
+            ->join('member_has_roles', 'members.id', '=', 'member_has_roles.member_id')
+            ->join('member_roles', 'member_has_roles.role_id', '=', 'member_roles.id')
+            ->where('member_has_roles.ministry_id', $ministry_id)
             ->whereIn('member_roles.slug', ['coordinator', 'administrator']);
 
         foreach ($member_filters as $key => $value) {
