@@ -42,14 +42,14 @@ Route::prefix('ministry')->middleware('cors')->group(function () {
         Route::get('notallocatedmembers', 'MemberController@getNotAllocatedMembers');
     });
 
-    // Route::prefix('{ministry_id}/group')->group(function () {
-    //     Route::get('/', 'GroupController@getAll');
-    //     Route::get('/{id}', 'GroupController@getGroup')->where('id', '[0-9]+');
-    //     Route::post('/', 'GroupController@create');
-    //     Route::put('/{id}', 'GroupController@update')->where('id', '[0-9]+');
-    //     Route::delete('/{id}', 'GroupController@delete')->where('id', '[0-9]+');
-    //     Route::put('/{id}/arrangemembers', 'GroupController@arrangeMember')->where('id', '[0-9]+');
-    //     Route::get('/groupsofministry', 'GroupController@getGroupsOfMinistry');
-    //     Route::get('/{id}/getmembers', 'GroupController@getMembers')->where('id', '[0-9]+');
-    // });
+    Route::prefix('{ministry_id}/group')->group(function () {
+        Route::get('/', 'GroupController@getAll');
+        Route::get('/{id}', 'GroupController@getGroup')->where('id', '[0-9]+');
+        Route::post('/', 'GroupController@create');
+        Route::put('/{id}', 'GroupController@update')->where('id', '[0-9]+');
+        Route::delete('/{id}', 'GroupController@delete')->where('id', '[0-9]+');
+        Route::put('/{id}/arrangemembers', 'GroupController@arrangeMember')->where('id', '[0-9]+');
+        Route::get('/groupsofministry', 'GroupController@getGroupsOfMinistry');
+        Route::get('/{id}/getmembers', 'GroupController@getMembers')->where('id', '[0-9]+');
+    });
 });

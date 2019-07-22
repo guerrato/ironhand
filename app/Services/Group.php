@@ -36,7 +36,7 @@ class Group
             return $group;
         } catch (Exception $e) {
             DB::rollBack();
-            return new Exception($e);
+            return new Exception($e->getMessage(), 500);
         }
     }
 
@@ -64,7 +64,7 @@ class Group
             return $group;
         } catch (Exception $th) {
             DB::rollBack();
-            throw new Exception($th, 500);
+            throw new Exception($th->getMessage(), 500);
         }
     }
 
