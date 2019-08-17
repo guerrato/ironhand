@@ -39,4 +39,22 @@ class Ministry extends Model
     {
         return $this->hasMany('App\Models\Groups', 'ministry_id', 'id');
     }
+
+    /**
+     * Get the members that the ministry into have the roles.
+     */
+    public function members(){
+        return $this->belongsToMany("App\Models\Member", 'member_has_roles', 'ministry_id', 'member_id')
+        ->withPivot('role_id')
+        ->withTimestamps();
+    }
+
+    /**
+     * Get the member roles.
+     */
+    public function roles(){
+        return $this->belongsToMany("App\Models\MemberRole", 'member_has_roles', 'ministry_id', 'role_id')
+        ->withPivot('ministry_id')
+        ->withTimestamps();
+    }
 }

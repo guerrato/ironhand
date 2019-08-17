@@ -6,7 +6,7 @@ use Exception;
 use App\Repositories\MemberRepository;
 use App\Repositories\MinistryRepository;
 
-class Ministry 
+class Ministry
 {
 
     private $member;
@@ -18,39 +18,39 @@ class Ministry
         $this->ministry = $ministry;
     }
 
-    public function getRules() 
+    public function getRules()
     {
         return $this->ministry->getRules();
     }
 
-    public function create($data) 
+    public function create($data)
     {
         $coordinators = array_column($this->member->getCoordinators($data['coordinator_id'])->toArray(), 'id');
-        
+
         if(empty($coordinators)) {
             throw new Exception(__('messages.user.coordinator.no_coordinator'), 1);
         }
-        
+
         return $this->ministry->create($data);
     }
 
-    public function update($data) 
+    public function update($data)
     {
         $coordinators = array_column($this->member->getCoordinators($data['coordinator_id'])->toArray(), 'id');
-        
+
         if(empty($coordinators)) {
             throw new Exception(__('messages.user.coordinator.no_coordinator'), 1);
         }
-        
+
         return $this->ministry->update($data, $data['id']);
     }
 
-    public function getAll() 
+    public function getAll()
     {
-        return $this->ministry->all()->load('coordinator');
+        return $this->ministry->getAll();
     }
-    
-    public function getMinistry($id) 
+
+    public function getMinistry($id)
     {
         return $this->ministry->findOrFail($id);
     }
