@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Exception;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\MemberRepository;
 use App\Repositories\MinistryRepository;
 
@@ -25,17 +26,57 @@ class Ministry
 
     public function create($data)
     {
-        $coordinators = array_column($this->member->getCoordinators($data['coordinator_id'])->toArray(), 'id');
+        DB::beginTransaction();
 
-        if(empty($coordinators)) {
-            throw new Exception(__('messages.user.coordinator.no_coordinator'), 1);
+        try {
+            $ministry = $this->ministry->create($data);
+            $ministry->members()->attach(1, ['role_id' => 2]);
+
+            DB::commit();
+
+            return $ministry;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return new Exception($e->getMessage(), 500);
         }
-
-        return $this->ministry->create($data);
     }
 
     public function update($data)
     {
+        DB::beginTransaction();
+
+        try {
+            if (empty($data['coordinators'])) {
+                throw new Exception(__('messages.user.coordinator.no_coordinator'), 1);
+            }
+
+            $ministry = $this->getMinistry($data['id']);
+            $coordinators = array_column($ministry->coordinators->toArray(), 'id');
+            $newCoordinators = [];
+
+            $this->ministry->update($data, $data['id']);
+
+            $coordinators = array_merge($coordinators);
+
+            foreach ($coordinators as $key) {
+                $newCoordinators[$key] = ['role_id' => 1];
+            }
+
+            foreach ($data['coordinators'] as $key) {
+                $newCoordinators[$key] = ['role_id' => 2];
+            }
+
+            $ministry->members()->syncWithoutDetaching($newCoordinators);
+
+            DB::commit();
+            $ministry = $this->getMinistry($data['id']);
+
+            return $ministry;
+        } catch (Exception $e) {
+            DB::rollBack();
+            return new Exception($e->getMessage(), 500);
+        }
+
         $coordinators = array_column($this->member->getCoordinators($data['coordinator_id'])->toArray(), 'id');
 
         if(empty($coordinators)) {
@@ -52,6 +93,6 @@ class Ministry
 
     public function getMinistry($id)
     {
-        return $this->ministry->findOrFail($id);
+        return $this->ministry->getMinistry($id);
     }
 }

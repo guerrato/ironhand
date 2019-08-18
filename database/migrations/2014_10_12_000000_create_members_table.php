@@ -27,6 +27,7 @@ class CreateMembersTable extends Migration
             $table->string('facebook')->nullable();
             $table->string('uuid')->unique()->nullable();
             $table->integer('status_id')->unsigned()->default(1);
+            $table->boolean('is_admin')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

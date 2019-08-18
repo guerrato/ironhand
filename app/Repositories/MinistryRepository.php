@@ -30,16 +30,29 @@ class MinistryRepository extends Repository
     public function getAll()
     {
         $ministries = $this->all()->each(function($ministry){
-            $ministry['members'] = $ministry->members()
-                ->join('member_roles', 'member_has_roles.role_id', '=', 'member_roles.id')
-                ->whereIn('member_roles.slug', ['coordinator', 'administrator'])
-                ->select('members.id', 'members.name', 'members.nickname')
-                ->get()->each(function($member) {
-                    unset($member->pivot);
-                });
+            $ministry['coordinators'] = $this->getMinistryCoordinators($ministry);
         });
 
         return $ministries;
+    }
+
+    public function getMinistry($id)
+    {
+        $ministry = $this->findOrFail($id);
+        $ministry->coordinators = $this->getMinistryCoordinators($ministry);
+        unset($ministry->members);
+        return $ministry;
+    }
+
+    private function getMinistryCoordinators(Ministry $ministry)
+    {
+        return $ministry->members()
+            ->join('member_roles', 'member_has_roles.role_id', '=', 'member_roles.id')
+            ->whereIn('member_roles.slug', ['coordinator', 'administrator'])
+            ->select('members.id', 'members.name', 'members.nickname')
+            ->get()->each(function($member) {
+                unset($member->pivot);
+            });
     }
 
 }
