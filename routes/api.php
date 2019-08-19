@@ -22,6 +22,7 @@ Route::prefix('ministry')->middleware('cors')->group(function () {
     Route::get('/{id}', 'MinistryController@getMinistry')->where('id', '[0-9]+');
     Route::post('/', 'MinistryController@create');
     Route::put('/{id}', 'MinistryController@update')->where('id', '[0-9]+');
+    Route::delete('/{id}', 'MinistryController@delete')->where('id', '[0-9]+');
 
     Route::prefix('{ministry_id}/member')->group(function () {
         Route::prefix('role')->group(function () {

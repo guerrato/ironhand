@@ -86,6 +86,11 @@ class Ministry
         return $this->ministry->update($data, $data['id']);
     }
 
+    public function delete($id)
+    {
+        return $this->ministry->delete($id);
+    }
+
     public function getAll()
     {
         return $this->ministry->getAll();
