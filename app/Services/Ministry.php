@@ -30,7 +30,7 @@ class Ministry
 
         try {
             $ministry = $this->ministry->create($data);
-            $ministry->members()->attach(1, ['role_id' => 2]);
+            $ministry->members()->attach(1, ['role_id' => 3]);
 
             DB::commit();
 
@@ -63,7 +63,7 @@ class Ministry
             }
 
             foreach ($data['coordinators'] as $key) {
-                $newCoordinators[$key] = ['role_id' => 2];
+                $newCoordinators[$key] = ['role_id' => 3];
             }
 
             $ministry->members()->syncWithoutDetaching($newCoordinators);
