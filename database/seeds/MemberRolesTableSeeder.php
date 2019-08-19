@@ -18,10 +18,14 @@ class MemberRolesTableSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                'description' => 'Coordinator'
+                'description' => 'Leader'
             ],
             [
                 'id' => 3,
+                'description' => 'Coordinator'
+            ],
+            [
+                'id' => 4,
                 'description' => 'Administrator'
             ]
         ];

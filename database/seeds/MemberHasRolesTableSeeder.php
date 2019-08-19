@@ -17,7 +17,7 @@ class MemberHasRolesTableSeeder extends Seeder
         $ministry_ids = array_column($ministries, 'id');
 
         foreach ($members as $mbr) {
-            $role = rand(1, 3);
+            $role = rand(1, 4);
 
             $member_roles[] = [
                 'member_id' => $mbr->id,

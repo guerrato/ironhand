@@ -5,10 +5,10 @@ namespace App\Repositories;
 use App\Models\MemberRole;
 use App\Repositories\Contracts\Repository;
 
-class MemberRoleRepository extends Repository 
+class MemberRoleRepository extends Repository
 {
-    
-    public function __construct(MemberRole $model) 
+
+    public function __construct(MemberRole $model)
     {
         $this->model = $model;
     }
@@ -23,11 +23,14 @@ class MemberRoleRepository extends Repository
         $available_roles = [];
 
         switch ($role_id) {
+            case 4:
+                $available_roles = [1, 2, 3, 4];
+                break;
             case 3:
-                $available_roles = [1,2,3];
+                $available_roles = [1, 2, 3];
                 break;
             case 2:
-                $available_roles = [1,2];
+                $available_roles = [1, 2];
                 break;
             default:
                 $available_roles = [];

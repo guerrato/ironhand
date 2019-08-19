@@ -28,7 +28,7 @@ class MemberRepository extends Repository
             ->join('member_has_roles', 'members.id', '=', 'member_has_roles.member_id')
             ->join('member_roles', 'member_has_roles.role_id', '=', 'member_roles.id')
             ->where('member_has_roles.ministry_id', $ministry_id)
-            ->whereIn('member_roles.slug', ['coordinator', 'administrator']);
+            ->whereIn('member_roles.slug', ['leader', 'coordinator', 'administrator']);
 
         foreach ($member_filters as $key => $value) {
             if (in_array($key, $fillable)) {
@@ -64,7 +64,7 @@ class MemberRepository extends Repository
             ->join('member_has_roles', 'members.id', '=', 'member_has_roles.member_id')
             ->join('member_roles', 'member_has_roles.role_id', '=', 'member_roles.id')
             ->where('member_has_roles.ministry_id', $ministry_id)
-            ->whereIn('member_roles.slug', ['coordinator', 'administrator']);
+            ->whereIn('member_roles.slug', ['leader', 'coordinator', 'administrator']);
 
         foreach ($member_filters as $key => $value) {
             if (in_array($key, $fillable)) {
