@@ -27,11 +27,15 @@ class MinistryRepository extends Repository
 
     }
 
-    public function getAll()
+    public function getAll(bool $with_coordinators = false)
     {
-        $ministries = $this->all()->each(function($ministry){
-            $ministry['coordinators'] = $this->getMinistryCoordinators($ministry);
-        });
+        $ministries = $this->all();
+
+        if ($with_coordinators === true) {
+            $ministries = $ministries->each(function($ministry) {
+                $ministry['coordinators'] = $this->getMinistryCoordinators($ministry);
+            });
+        }
 
         return $ministries;
     }

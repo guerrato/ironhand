@@ -58,9 +58,16 @@ class MinistryController extends Controller
         return $this->formatedSuccess($this->ministry->delete($id));
     }
 
-    public function getAll()
+    public function getAll(Request $request)
     {
-        return $this->formatedSuccess($this->ministry->getAll());
+        $with_coordinators = false;
+
+        if (!empty($request->with_coordinators))
+        {
+            $with_coordinators = filter_var($request->with_coordinators, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        return $this->formatedSuccess($this->ministry->getAll($with_coordinators));
     }
 
     public function getMinistry(Request $request, $id)

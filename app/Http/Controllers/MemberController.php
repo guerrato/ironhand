@@ -72,9 +72,16 @@ class MemberController extends Controller
         return $this->formatedSuccess($this->member->getById($ministry_id, $id));
     }
 
-    public function getAll()
+    public function getAll(Request $request, $ministry_id)
     {
-        return $this->formatedSuccess($this->member->getAll());
+        $no_filter = false;
+
+        if (!empty($request->no_filter))
+        {
+            $no_filter = filter_var($request->no_filter, FILTER_VALIDATE_BOOLEAN);
+        }
+
+        return $this->formatedSuccess($this->member->getAll($ministry_id, $no_filter));
     }
 
     public function getCoordinators(Request $request, $ministry_id)

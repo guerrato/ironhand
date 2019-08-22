@@ -91,9 +91,9 @@ class Ministry
         return $this->ministry->delete($id);
     }
 
-    public function getAll()
+    public function getAll(bool $with_coordinators = false)
     {
-        return $this->ministry->getAll();
+        return $this->ministry->getAll($with_coordinators);
     }
 
     public function getMinistry($id)

@@ -108,6 +108,18 @@ class MemberRepository extends Repository
         return $this->getModel()->where('gender', $gender)->get();
     }
 
+    public function getAll($ministry_id, $no_filter = false)
+    {
+        $members = $this->model;
+
+        if (!$no_filter) {
+            $members = $members->join('member_has_roles', 'member_has_roles.member_id', '=', 'members.id')
+            ->where('member_has_roles.ministry_id', $ministry_id)->select('members.*');
+        }
+
+        return $members->get();
+    }
+
     public function getById($id = null)
     {
         return $this->findOrFail($id);

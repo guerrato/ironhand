@@ -113,9 +113,9 @@ class Member
         return $member;
     }
 
-    public function getAll()
+    public function getAll($ministry_id, $no_filter = false)
     {
-        return $this->member->all();
+        return $this->member->getAll($ministry_id, $no_filter);
     }
 
     public function getCoordinators($member_filters = [])
