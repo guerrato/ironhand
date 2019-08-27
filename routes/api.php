@@ -25,14 +25,6 @@ Route::prefix('ministry')->middleware('cors')->group(function () {
     Route::delete('/{id}', 'MinistryController@delete')->where('id', '[0-9]+');
 
     Route::prefix('{ministry_id}/member')->group(function () {
-        Route::prefix('role')->group(function () {
-            Route::get('{role_id}/listrolesbyhierarchy', 'MemberRoleController@listRolesByHierarchy')->where('role_id', '[0-9]+');
-        });
-
-        Route::prefix('status')->group(function () {
-            Route::get('/', 'MemberStatusController@getAll');
-        });
-
         Route::get('/', 'MemberController@getAll');
         Route::get('/{id}', 'MemberController@getById')->where('id', '[0-9]+');
         Route::post('/', 'MemberController@create');
@@ -41,6 +33,15 @@ Route::prefix('ministry')->middleware('cors')->group(function () {
         Route::get('coordinators', 'MemberController@getCoordinators');
         Route::get('notallocatedcoordinators', 'MemberController@getNotAllocatedCoordinators');
         Route::get('notallocatedmembers', 'MemberController@getNotAllocatedMembers');
+        Route::get('similarsearch', 'MemberController@getSimilarSearch');
+
+        Route::prefix('role')->group(function () {
+            Route::get('{role_id}/listrolesbyhierarchy', 'MemberRoleController@listRolesByHierarchy')->where('role_id', '[0-9]+');
+        });
+
+        Route::prefix('status')->group(function () {
+            Route::get('/', 'MemberStatusController@getAll');
+        });
     });
 
     Route::prefix('{ministry_id}/group')->group(function () {

@@ -124,4 +124,16 @@ class MemberRepository extends Repository
     {
         return $this->findOrFail($id);
     }
+
+    public function getSimilarSearch(array $words)
+    {
+        $found = $this->model;
+        foreach ($words as $word => $percentage) {
+            $found = $found->orWhere('name', 'like', "%$word%")->orWhere('nickname', 'like', "%$word%");
+
+        }
+
+        return $found->get();
+
+    }
 }

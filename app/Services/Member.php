@@ -132,4 +132,50 @@ class Member
     {
         return $this->member->getNotAllocatedMembers($ministry_id, $member_filters);
     }
+
+    public function getSimilarSearch($q)
+    {
+        $q = $this->utils->normalizeString($q);
+        $members = [];
+        $stored = $this->getAll(0, true);
+        $words = [];
+
+        foreach ($stored as $m) {
+            foreach (explode(' ', $m->name) as $word) {
+                $words[$word] = 0;
+            }
+
+            foreach (explode(' ', $m->nickname) as $word) {
+                $words[$word] = 0;
+            }
+        }
+
+        foreach ($words as $word => $value) {
+            $words[$word] = $this->utils->getSimilarity($q, $this->utils->normalizeString($word))['percentage'];
+            if ($words[$word] < 36) {
+                unset($words[$word]);
+            }
+        }
+
+        arsort($words);
+        $found = $this->member->getSimilarSearch($words);
+
+        $result = [];
+
+        foreach ($words as $word => $percentage) {
+            foreach ($found as $m) {
+                if (strpos($m->name, $word) !== false || strpos($m->nickname, $word) !== false) {
+                    if(array_search($m->id, array_column($result, 'id')) === false) {
+                        $result[] = $m;
+                    }
+                }
+            }
+        }
+
+        return [
+            'members' => $result,
+            'words' => $words
+        ];
+
+    }
 }

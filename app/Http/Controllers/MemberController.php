@@ -116,4 +116,15 @@ class MemberController extends Controller
 
         return $this->formatedSuccess($this->member->getNotAllocatedMembers($ministry_id, $request->all()));
     }
+
+    public function getSimilarSearch(Request $request, $ministry_id)
+    {
+        $validator = Validator::make(['q' => $request->q], ['q' => 'required']);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 500);
+        }
+
+        return $this->formatedSuccess($this->member->getSimilarSearch($request->q));
+    }
 }
