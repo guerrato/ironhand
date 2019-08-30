@@ -133,7 +133,7 @@ class MemberRepository extends Repository
 
         }
 
-        return $found->get();
+        return $found->select('id', 'name', 'nickname')->get();
 
     }
 }

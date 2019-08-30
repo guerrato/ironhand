@@ -150,6 +150,7 @@ class Member
             }
         }
 
+        // Get similarity of strings
         foreach ($words as $word => $value) {
             $words[$word] = $this->utils->getSimilarity($q, $this->utils->normalizeString($word))['percentage'];
             if ($words[$word] < 36) {
@@ -157,25 +158,28 @@ class Member
             }
         }
 
-        arsort($words);
+        // Search the members into the similarity range
         $found = $this->member->getSimilarSearch($words);
 
+        // Generate result withou duplivity of registers
         $result = [];
-
         foreach ($words as $word => $percentage) {
             foreach ($found as $m) {
+                $key = array_search($m->id, array_column($result, 'id'));
                 if (strpos($m->name, $word) !== false || strpos($m->nickname, $word) !== false) {
-                    if(array_search($m->id, array_column($result, 'id')) === false) {
+                    if($key === false) {
+                        $m->percentage = $percentage;
                         $result[] = $m;
+                    } else {
+                        if ($result[$key]->percentage < $percentage) {
+                            $result[$key]->percentage = $percentage;
+                        }
                     }
                 }
             }
         }
 
-        return [
-            'members' => $result,
-            'words' => $words
-        ];
+        return $result;
 
     }
 }
