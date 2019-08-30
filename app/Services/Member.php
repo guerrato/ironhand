@@ -166,6 +166,7 @@ class Member
         foreach ($words as $word => $percentage) {
             foreach ($found as $m) {
                 $key = array_search($m->id, array_column($result, 'id'));
+                // The condition bellow is to identify the word related to the name and nickname search to apply the correct percentage
                 if (strpos($m->name, $word) !== false || strpos($m->nickname, $word) !== false) {
                     if($key === false) {
                         $m->percentage = $percentage;
