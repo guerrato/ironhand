@@ -12,10 +12,12 @@ class Member
 {
     private $utils;
     private $member;
+    private $ministry;
 
-    public function __construct(MemberRepository $member, Utils $utils)
+    public function __construct(MemberRepository $member, Ministry $ministry, Utils $utils)
     {
         $this->member = $member;
+        $this->ministry = $ministry;
         $this->utils = $utils;
     }
 
@@ -182,5 +184,40 @@ class Member
 
         return $result;
 
+    }
+
+    public function addMemberInMinistry($data)
+    {
+        DB::beginTransaction();
+
+        try {
+            $stored = $this->getById($data['ministry_id'], $data['id']);
+            $ministry = $this->ministry->getMinistry($data['ministry_id']);
+
+            if (!empty($ministry->required_gender) && $ministry->required_gender != $stored->gender)
+            {
+                throw new Exception("You are trying to add a member which the gender is not accepted by this ministry", 1);
+            }
+
+            $result = $stored;
+
+            if ($stored->status_id == 3) {
+                $data['status_id'] = 1;
+                $result = $this->member->update($data, $data['id']);
+            }
+
+            $role = $stored->ministries()->wherePivot('ministry_id', $data['ministry_id'])->first();
+            if (!empty($role)) {
+                $stored->ministries()->updateExistingPivot($data['ministry_id'], ['role_id' => $data['role_id']]);
+            } else {
+                $stored->ministries()->attach($data['ministry_id'], ['role_id' => $data['role_id']]);
+            }
+            DB::commit();
+
+            return $result;
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw new Exception($e->getMessage());
+        }
     }
 }

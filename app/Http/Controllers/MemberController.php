@@ -127,4 +127,25 @@ class MemberController extends Controller
 
         return $this->formatedSuccess($this->member->getSimilarSearch($request->q));
     }
+
+    public function addMemberInMinistry(Request $request, $ministry_id, $id)
+    {
+        $data = $request->all();
+        $data['id'] = $id;
+        $data['ministry_id'] = $ministry_id;
+
+        $rules = [
+            'id' => 'required|exists:members,id',
+            'ministry_id' => 'required|exists:ministries,id',
+            'role_id' => 'required|exists:member_roles,id'
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 500);
+        }
+
+        return $this->formatedSuccess($this->member->addMemberInMinistry($data));
+    }
 }

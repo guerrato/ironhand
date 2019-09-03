@@ -34,6 +34,7 @@ Route::prefix('ministry')->middleware('cors')->group(function () {
         Route::get('notallocatedcoordinators', 'MemberController@getNotAllocatedCoordinators');
         Route::get('notallocatedmembers', 'MemberController@getNotAllocatedMembers');
         Route::get('similarsearch', 'MemberController@getSimilarSearch');
+        Route::put('/{id}/addmemberinministry', 'MemberController@addMemberInMinistry');
 
         Route::prefix('role')->group(function () {
             Route::get('{role_id}/listrolesbyhierarchy', 'MemberRoleController@listRolesByHierarchy')->where('role_id', '[0-9]+');
