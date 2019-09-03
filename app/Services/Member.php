@@ -52,7 +52,7 @@ class Member
         DB::beginTransaction();
 
         try {
-            $stored = $this->getById($data['id']);
+            $stored = $this->getById($data['ministry_id'], $data['id']);
 
             if (!empty($data['image'])) {
                 $data['image'] = $this->utils->saveImage($data['image'], 'members');
